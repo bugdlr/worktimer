@@ -1,29 +1,47 @@
+const startButton = document.getElementById('start');
+const inputElement = document.getElementById('hours');
+const pauseButton = document.getElementById('pause');
+let isPaused = false;
+
+
+// start robbmj's code
+function startTimer(duration, display) {
+    let timer = duration, minutes, seconds;
+    if (isPaused === false) {
+      setInterval(function () {
+          minutes = parseInt(timer / 60, 10)
+          seconds = parseInt(timer % 60, 10);
+
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+
+          display.textContent = minutes + ":" + seconds;
+
+          if (--timer < 0) {
+              timer = duration;
+          }
+      }, 1000);
+    }
+
+}
+// end robbmj's code
+
 function getInputValue() {
-  const userInput = document.getElementById('hours').value;
-  var inputMinutes = 60 * userInput,
+  const userInput = inputElement.value;
+  const inputMinutes = 60 * userInput,
       display = document.getElementById('time');
   startTimer(inputMinutes, display);
 }
 
-const submitButton = document.getElementById('submit');
+startButton.addEventListener('click', getInputValue);
 
-submitButton.addEventListener('click', getInputValue);
+pauseButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  isPaused = true;
+});
 
-// start robbmj's code
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-}
-// end robbmj's code
+inputElement.addEventListener('keyup', function (e) {
+  if (e.keyCode === 13) {
+    startButton.click();
+  }
+});
