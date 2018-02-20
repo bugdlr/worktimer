@@ -6,24 +6,24 @@ let isPaused = false;
 
 // start robbmj's code
 function startTimer(duration, display) {
-    let timer = duration, minutes, seconds;
+  let timer = duration, minutes, seconds;
+  setInterval(function () {
     if (isPaused === false) {
-      setInterval(function () {
-          minutes = parseInt(timer / 60, 10)
-          seconds = parseInt(timer % 60, 10);
+      minutes = parseInt(timer / 60, 10)
+      seconds = parseInt(timer % 60, 10);
 
-          minutes = minutes < 10 ? "0" + minutes : minutes;
-          seconds = seconds < 10 ? "0" + seconds : seconds;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
 
-          display.textContent = minutes + ":" + seconds;
+      display.textContent = minutes + ":" + seconds;
 
-          if (--timer < 0) {
-              timer = duration;
-          }
-      }, 1000);
+      if (--timer < 0) {
+        timer = duration;
+      }
     }
-
+  }, 1000);
 }
+
 // end robbmj's code
 
 function getInputValue() {
@@ -33,7 +33,14 @@ function getInputValue() {
   startTimer(inputMinutes, display);
 }
 
-startButton.addEventListener('click', getInputValue);
+startButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (isPaused === false) {
+    getInputValue();
+  } else {
+    isPaused = false;
+  }
+});
 
 pauseButton.addEventListener('click', function (e) {
   e.preventDefault();
