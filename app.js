@@ -1,42 +1,54 @@
 const startButton = document.getElementById('start');
 const inputElement = document.getElementById('hours');
 const pauseButton = document.getElementById('pause');
+const display = document.getElementById('time');
 let isPaused = false;
 
 
-// start robbmj's code
-function startTimer(duration, display) {
-  let timer = duration, minutes, seconds;
-  setInterval(function () {
-    if (isPaused === false) {
-      minutes = parseInt(timer / 60, 10)
-      seconds = parseInt(timer % 60, 10);
+function floatToHoursMinutesSeconds() {
+  const userInput = parseFloat(inputElement.value);
+  const totalSeconds = userInput * 3600;
+  let hours = Math.floor(userInput);
+  let minutes = Math.floor((totalSeconds / 60) - (hours * 60));
+  let seconds = Math.floor(totalSeconds - ((hours * 3600) + (minutes * 60)));
 
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
 
-      display.textContent = minutes + ":" + seconds;
+  // display.textContent = hours + ":" + minutes + ":" + seconds;
 
-      if (--timer < 0) {
-        timer = duration;
+    setInterval(function () {
+      if (isPaused === false) {
+        --seconds;
+        if (seconds < 0) {
+          seconds = 59;
+          --minutes;
+        }
+        if (minutes < 0) {
+          minutes = 59;
+          --hours;
+        }
+
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
+        // if (minutes < 10) {
+        //   minutes = "0" + minutes;
+        // }
+        // if (hours < 10) {
+        //   hours = "0" + hours;
+        // }
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
       }
-    }
-  }, 1000);
-}
-
-// end robbmj's code
-
-function getInputValue() {
-  const userInput = inputElement.value;
-  const inputMinutes = 60 * userInput,
-      display = document.getElementById('time');
-  startTimer(inputMinutes, display);
+    }, 1000);
 }
 
 startButton.addEventListener('click', function (e) {
   e.preventDefault();
   if (isPaused === false) {
-    getInputValue();
+    floatToHoursMinutesSeconds();
   } else {
     isPaused = false;
   }
