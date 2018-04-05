@@ -1,8 +1,6 @@
-const startButton = document.getElementById('start');
+const startButton = document.getElementById('calculate');
 const inputElement = document.getElementById('hours');
-const pauseButton = document.getElementById('pause');
 const display = document.getElementById('time');
-let isPaused = false;
 
 function setTime() {
   //get current time
@@ -18,15 +16,9 @@ function setTime() {
   let minutes = Math.floor((totalSeconds / 60) - (hours * 60));
   let seconds = Math.floor(totalSeconds - ((hours * 3600) + (minutes * 60)));
 
-  //set AM or PM
-  let ampm = "AM"
-  let endHours = (nowHours + hours)
-    if (endHours >= 12 && endHours < 24) {
-      ampm = "PM";
-    }
-
   //roll minutes into hours
   let endMinutes = (nowMins + minutes);
+  let endHours = (nowHours + hours);
     if (endMinutes > 60) {
       endMinutes -= 60;
       endHours += 1;
@@ -46,48 +38,20 @@ function setTime() {
     endHours = "0" + endHours;
   }
 
+  //set AM or PM
+  let ampm = "AM"
+    if (endHours >= 12 && endHours < 24) {
+      ampm = "PM";
+    }
+
+  //show result on the page
   display.textContent = (endHours % 12 || 12) + ":" + (endMinutes) + " " + ampm;
+}
 
-
-  }
-
-//********** TO DO *********//
-//make it prettier
-//make AM/PM work infinitely
-//*******************//
-
-
-  //*********COUNTDOWN ATTEMPT***********//
-  //     setInterval(function () {
-  //       if (isPaused === false) {
-  //         // --totalSeconds;
-  //         // this function needs to increment the totalSeconds, not just the displayed  seconds, then the new value needs to be passed to the floatToHoursMinutesSeconds function, which needs to run every second
-  //         if (seconds < 10) {
-  //           seconds = "0" + seconds;
-  //         }
-  //       // } if (seconds === 0) {
-  //       //     seconds = 59;
-  //           // --minutes;
-  //         }
-  //         // if (minutes < 0) {
-  //         //   minutes = 59;
-  //         //   --hours;
-  //         // }
-  //
-  //
-  //         display.textContent = hours + ":" + minutes + ":" + seconds;
-  //
-  //     }, 1000);
-
-
-
+//event listeners
 startButton.addEventListener('click', function (e) {
   e.preventDefault();
-  if (isPaused === false) {
-    setTime();
-  } else {
-    isPaused = false;
-  }
+  setTime();
   document.getElementById("stopMessage").style.display = "block";
 });
 
@@ -96,3 +60,10 @@ inputElement.addEventListener('keyup', function (e) {
     startButton.click();
   }
 });
+
+
+//********** TO DO *********//
+//make it prettier
+//make AM/PM work infinitely
+//add input validation
+//*******************//
