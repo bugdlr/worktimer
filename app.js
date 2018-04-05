@@ -18,10 +18,11 @@ function setTime() {
   let minutes = Math.floor((totalSeconds / 60) - (hours * 60));
   let seconds = Math.floor(totalSeconds - ((hours * 3600) + (minutes * 60)));
 
-  //change from military to standard time
+  //set AM or PM
+  let ampm = "AM"
   let endHours = (nowHours + hours)
-    if (endHours > 12) {
-      endHours = (endHours - 12);
+    if (endHours >= 12 && endHours < 24) {
+      ampm = "PM";
     }
 
   //roll minutes into hours
@@ -45,15 +46,14 @@ function setTime() {
     endHours = "0" + endHours;
   }
 
-    display.textContent = (endHours) + ":" + (endMinutes);
+  display.textContent = (endHours % 12 || 12) + ":" + (endMinutes) + " " + ampm;
 
 
   }
 
 //********** TO DO *********//
-//add AM or PM
-//fix 24 hour rollover
 //make it prettier
+//make AM/PM work infinitely
 //*******************//
 
 
