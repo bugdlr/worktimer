@@ -46,12 +46,14 @@ function setTime() {
   }
 
     display.textContent = (endHours) + ":" + (endMinutes);
+
+
   }
 
 //********** TO DO *********//
 //add AM or PM
 //fix 24 hour rollover
-//make it pretty
+//make it prettier
 //*******************//
 
 
@@ -86,11 +88,7 @@ startButton.addEventListener('click', function (e) {
   } else {
     isPaused = false;
   }
-});
-
-pauseButton.addEventListener('click', function (e) {
-  e.preventDefault();
-  isPaused = true;
+  document.getElementById("stopMessage").style.display = "block";
 });
 
 inputElement.addEventListener('keyup', function (e) {
