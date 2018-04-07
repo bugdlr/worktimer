@@ -17,18 +17,18 @@ function setTime() {
   let seconds = Math.floor(totalSeconds - ((hours * 3600) + (minutes * 60)));
 
   //roll minutes into hours
-  let endMinutes = (nowMins + minutes);
-  let endHours = (nowHours + hours);
-    if (endMinutes > 60) {
-      endMinutes -= 60;
-      endHours += 1;
-    }
+  let endMinutes = nowMins + minutes;
+  let endHours = nowHours + hours;
+  if (endMinutes > 60) {
+    endMinutes -= 60;
+    endHours += 1;
+  }
 
   //roll seconds into minutes
-  let endSeconds = (nowSecs + seconds);
-    if (endSeconds > 60) {
-      endMinutes += 1;
-    }
+  let endSeconds = nowSecs + seconds;
+  if (endSeconds > 60) {
+    endMinutes += 1;
+  }
 
   //add leading zeros, if needed
   if (endMinutes < 10) {
@@ -39,13 +39,13 @@ function setTime() {
   }
 
   //set AM or PM
-  let ampm = "AM"
-    if (endHours >= 12 && endHours < 24) {
-      ampm = "PM";
-    }
+  let ampm = "AM";
+  if (endHours >= 12 && endHours < 24) {
+    ampm = "PM";
+  }
 
   //show result on the page
-  display.textContent = (endHours % 12 || 12) + ":" + (endMinutes) + " " + ampm;
+  display.textContent = (endHours % 12 || 12) + ":" + endMinutes + " " + ampm;
 }
 
 //event listeners

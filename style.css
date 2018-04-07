@@ -19,3 +19,9 @@ h1 {
   font-size: 35px;
   color: firebrick;
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
