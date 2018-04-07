@@ -3,6 +3,10 @@ const inputElement = document.getElementById('hours');
 const display = document.getElementById('time');
 
 function setTime() {
+  if (inputElement.value === "") {
+    alert('Please enter a number');
+    return false;
+  }
   //get current time
   const now = new Date();
   const nowHours = now.getHours();
@@ -45,6 +49,7 @@ function setTime() {
   }
 
   //show result on the page
+  document.getElementById("stopMessage").style.display = "block";
   display.textContent = (endHours % 12 || 12) + ":" + endMinutes + " " + ampm;
 }
 
@@ -52,7 +57,6 @@ function setTime() {
 startButton.addEventListener('click', function (e) {
   e.preventDefault();
   setTime();
-  document.getElementById("stopMessage").style.display = "block";
 });
 
 inputElement.addEventListener('keyup', function (e) {
