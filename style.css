@@ -10,9 +10,12 @@ h1 {
   font-size: 40px;
 }
 
+p {
+  font-size: 18px;
+}
+
 #stopMessage {
   display: none;
-  font-size: 26px;
 }
 
 #time {
@@ -20,8 +23,25 @@ h1 {
   color: firebrick;
 }
 
+input {
+  border: 1px solid #ccc;
+  font-size: 20px;
+  padding: 10px;
+  margin-right: 5px;
+  width: 125px;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+button {
+  background-color: steelblue;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 11px 20px;
+  border: none;
 }
